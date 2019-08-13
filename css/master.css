@@ -8,6 +8,10 @@
   position: relative;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 10px;
+}
+
 html, body {
 /* background-color: #EEE; */
 height: 100%;
@@ -75,6 +79,10 @@ header {
 
 .banner {
   padding: 3vh;
+}
+
+.banner-text h1 {
+  margin: 0;
 }
 
 .banner-text {
@@ -202,6 +210,47 @@ ol {
 .EMC ol{
   list-style-type: none;
 }
+
+/* Highlight reel */
+
+.slideshow {
+  display: none;
+}
+
+.highlight-container {
+  display: flex;
+  justify-content: center;
+  /* border: 1px solid red; */
+  padding: 0;
+}
+
+.highlight-reel {
+  margin: 0 auto;
+  margin-top: 40px;
+  margin-bottom: 0;
+  width: 1000px;
+  height: 461px;
+  background-color: black;
+  display: flex;
+  align-items: center;
+  /* border: 1px dashed green; */
+  /* overflow: hidden; Enable this for fill picture*/
+}
+
+.highlight-reel img {
+  object-fit: cover;
+  margin: 0 auto;
+  height: 100%;
+  max-width:100%;
+  max-height:100%;
+}
+
+/* This code will fill the container with the image */
+/* .highlight-reel img {
+  object-fit: cover;
+  margin: 0 auto;
+  width: 100%;
+} */
 
 /* Upcoming page */
 

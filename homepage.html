@@ -41,10 +41,33 @@
       </div>
     </section>
 
-    <section class="highlight-reel">
-
+    <section class="highlight-container">
+      <div class="highlight-reel">
+        <img class="slideshow" src="images/banner-images/1.jpg" alt="">
+        <img class="slideshow" src="images/banner-images/2.jpg" alt="">
+        <img class="slideshow" src="images/banner-images/3.jpg" alt="">
+        <img class="slideshow" src="images/banner-images/5.jpg" alt="">
+        <img class="slideshow" src="images/banner-images/6.jpg" alt="">
+      </div>
     </section>
     </div>
+
+    <script>
+      var myIndex = 0;
+      carousel();
+
+      function carousel() {
+        var i;
+        var x = document.getElementsByClassName("slideshow");
+        for (i = 0; i < x.length; i++) {
+          x[i].style.display = "none";
+        }
+        myIndex++;
+        if (myIndex > x.length) {myIndex = 1}
+        x[myIndex-1].style.display = "block";
+        setTimeout(carousel, 5000); // Change image every 2 seconds
+      }
+    </script>
 
     <footer>
       <div class="footer-links">
