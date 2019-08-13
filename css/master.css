@@ -3,6 +3,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Open Sans', sans-serif;
+  /* font-size: 20px; */
 }
 .header-container {
   position: relative;
@@ -145,6 +146,7 @@ section {
   padding: 20px 20%;
   flex-direction: column;
   /* border: 1px solid red; */
+  font-size: 18px;
 }
 
 section ul {
@@ -244,6 +246,7 @@ ol {
   max-width:100%;
   max-height:100%;
 }
+.animate-fading{animation:fading 7s infinite}@keyframes fading{0%{opacity:0}50%{opacity:1}90%{opacity:1}100%{opacity:0}}
 
 /* This code will fill the container with the image */
 /* .highlight-reel img {
