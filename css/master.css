@@ -15,6 +15,7 @@ height: 100%;
 
 body {
   font-size: calc(12px + 0.35vw);
+  min-width: 320px;
 }
 
 /* Header */
@@ -26,7 +27,7 @@ header {
   position: relative;
   display: flex;
   width: 100%;
-  height: 185px;
+  /* height: 185px; */
   color: #FFF;
   background-color: #DDD;
   flex-wrap: wrap;
@@ -85,6 +86,7 @@ flex: 1;
   justify-content: space-between;
   align-items: flex-end;
   height: 100%;
+  margin-top: 15px;
 }
 
 .menu li {
@@ -166,10 +168,6 @@ section {
   padding: 0 20%;
   margin-bottom: 40px;
   flex-direction: column;
-}
-
-section ul {
-  margin-bottom: -100px;
 }
 
 .upcoming-conference {
@@ -255,7 +253,7 @@ ol {
 
 
 .prev-table {
-  padding: 0 20px;
+  padding: 0 14%;
 }
 
 .prev-table h1 {
@@ -273,8 +271,8 @@ th {
   font-weight: bold;
 }
 
-td {
-  width: 28%;
+.calendar-container td {
+  width: 27%;
   height: 50px;
 }
 
@@ -286,12 +284,29 @@ tr:nth-child(odd) td {
   background: #DDD;
 }
 
-td:first-child {
+.calendar-container td:first-child {
   width: 8%;
 }
 
-td:last-child {
-  width: 8%;
+.calendar-container td:last-child {
+  width: 10%;
+}
+
+.calendar-container th {
+  height: 40px;
+}
+
+.history-container {
+  width: inherit;
+}
+
+.history-container td {
+  width: 33.3%;
+  height: 50px;
+}
+
+.history-container th {
+  height: 40px;
 }
 
 tr:hover td {
@@ -313,20 +328,20 @@ tr:first-child th:last-child {
   padding: 0;
 }
 
- .about-item {
-   display: flex;
-   justify-content: center;
-   flex-direction: row;
-   flex-wrap: wrap;
-   margin-bottom: 10px;
-   padding: 3% 20%;
- }
+.about-item {
+ display: flex;
+ justify-content: center;
+ flex-direction: row;
+ flex-wrap: wrap;
+ margin-bottom: 10px;
+ padding: 3% 20%;
+}
 
- .contact-picture {
-   margin-bottom: 20px;
-   margin-right: 10px;
-   flex: 1;
- }
+.contact-picture {
+ margin-bottom: 20px;
+ margin-right: 10px;
+ flex: 1;
+}
 
 .about-item img {
   width: 200px;
