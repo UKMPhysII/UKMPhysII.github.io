@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Open Sans', Helvetica, sans-serif;
 }
 
 html {
@@ -15,7 +15,7 @@ height: 100%;
 
 body {
   font-size: calc(12px + 0.35vw);
-  min-width: 320px;
+  min-width: 400px;
 }
 
 /* Header */
