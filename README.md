@@ -1,3 +1,2 @@
 # UKMPhysII.github.io
-ESMR website
-Maybe this readme will make the pages load?
+ESMR website files.  To request changes, see email link in website.
