@@ -18,6 +18,11 @@ body {
   min-width: 400px;
 }
 
+/* Turn off right click to save images.*/
+img {
+  pointer-events: none;
+}
+
 /* Header */
 header {
   position: static;
