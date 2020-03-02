@@ -15,7 +15,7 @@ height: 100%;
 
 body {
   font-size: calc(12px + 0.35vw);
-  min-width: 400px;
+  min-width: 350px;
 }
 
 /* Turn off right click to save images.*/
@@ -44,7 +44,8 @@ header {
 
 .logo {
   margin-left: 20px;
-  margin-top: calc(38px - 1vw);
+  margin-top: calc(30px - 1vw);
+  margin-right: 20px;
 }
 
 .logo-container img {
@@ -171,7 +172,7 @@ footer a:link {
 section {
   display: flex;
   padding: 0 20%;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   flex-direction: column;
 }
 
