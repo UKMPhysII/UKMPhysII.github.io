@@ -1,66 +1,67 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>ESMR - Homepage</title>
-    <link rel="stylesheet" href="css/master.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="imagetoolbar" content="no" />
-  </head>
-  <body>
-    <div class="page">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>ESMR - Homepage</title>
+  <link rel="stylesheet" href="css/master.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="imagetoolbar" content="no" />
+</head>
+<body>
+  <div class="page">
 
     <header>
       <div class="header-container">
 
         <picture class="logo-container">
-          <a href="https://www.esmr.org/" target="_blank"><img class="logo" src="images/EMC.svg" alt="European Muscle Conferences logo"></a>
+          <a href="http://www.emc2020prague.eu/" target="_blank">
+            <img class="logo" src="images/EMC.svg" alt="European Muscle Conferences logo">
+          </a>
         </picture>
 
         <div class="banner-text">
           <strong>
-          <h1>ESMR</h1>
-          <p>EUROPEAN SOCIETY for MUSCLE RESEARCH</p></strong>
+            <h1>ESMR</h1>
+            <p>EUROPEAN SOCIETY for MUSCLE RESEARCH</p></strong>
+          </div>
+
+          <div class="spacer"></div>
+
+          <nav class="menu">
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="upcoming-events.html">Upcoming events</a></li>
+              <li><a href="previous-events.html">Previous events</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+          </nav>
         </div>
 
-        <div class="spacer">
+      </header>
 
-        </div>
+      <div class="content">
 
-        <nav class="menu">
-          <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="upcoming-events.html">Upcoming events</a></li>
-            <li><a href="previous-events.html">Previous events</a></li>
-            <li><a href="contact.html">Contact</a></li>
-          </ul>
-        </nav>
+        <section class="upcoming-conference">
+          <div class="conf-container">
+            <p>The <a target="_blank" href="http://www.emc2020prague.eu/">49th EMC muscle conference</a> will be held in Prague, Czech Republic. <br> <font size = "5"> Please post and distribute the <a target="_blank" href="agenda/flyerEMC2020.pdf">flyer!</a><font></p>
+          </div>
+        </section>
+
+        <section class="highlight-container" style="margin-bottom:-30px;">
+          <div class="highlight-reel">
+            <img class="slideshow animate-fading" src="images/banner-images/1.jpg" alt="">
+            <img class="slideshow animate-fading" src="images/banner-images/2.jpg" alt="">
+            <img class="slideshow animate-fading" src="images/banner-images/3.jpg" alt="">
+            <img class="slideshow animate-fading" src="images/banner-images/4.jpg" alt="">
+            <img class="slideshow animate-fading" src="images/banner-images/5.jpg" alt="">
+            <!-- <div style="width: 100%; height: 100%; position: absolute; top: 0; left: 0"></div> -->
+          </div>
+        </section>
       </div>
 
-    </header>
-
-    <div class="content">
-
-    <section class="upcoming-conference">
-      <div class="conf-container">
-        <p>The <a target="_blank" href="http://www.esmr.org/">49th EMC muscle conference</a> will be held in Prague, Czech Republic. </br> <a target="_blank" href="agenda/flyerEMC2020.pdf">Please post and distribute the flyer!</a> </br> The conference link will be updated shortly.</p>      </div>
-    </section>
-
-    <section class="highlight-container" style="margin-bottom:-30px;">
-      <div class="highlight-reel">
-        <img class="slideshow animate-fading" src="images/banner-images/1.jpg" alt="">
-        <img class="slideshow animate-fading" src="images/banner-images/2.jpg" alt="">
-        <img class="slideshow animate-fading" src="images/banner-images/3.jpg" alt="">
-        <img class="slideshow animate-fading" src="images/banner-images/4.jpg" alt="">
-        <img class="slideshow animate-fading" src="images/banner-images/5.jpg" alt="">
-        <!-- <div style="width: 100%; height: 100%; position: absolute; top: 0; left: 0"></div> -->
-      </div>
-    </section>
-    </div>
-
-    <script>
+      <script>
       var myIndex = 0;
       carousel();
 
@@ -75,23 +76,23 @@
         x[myIndex-1].style.display = "block";
         setTimeout(carousel, 7000); // Change image every 7 seconds
       }
-    </script>
+      </script>
 
-    <footer>
-      <div class="footer-links">
-        <ul>
-          <li> <a href="index.html">Homepage</a> </li>
-          <li> <a href="about.html">About</a> </li>
-          <li> <a href="upcoming-events.html">Upcoming events</a> </li>
-          <li> <a href="previous-events.html">Previous events</a> </li>
-          <li> <a href="contact.html">Contact</a> </li>
-        </ul>
-      </div>
-      <div class="footer-contact">
-        <p>Website designed in <a target="_blank" href="https://goo.gl/maps/nFUPXP3VKi3PSJrC6">M&uuml;nster</a> <br> <a href="mailto:wlinke@uni-muenster.de">E-mail</a> </p>
-      </div>
-    </footer>
+      <footer>
+        <div class="footer-links">
+          <ul>
+            <li> <a href="index.html">Homepage</a> </li>
+            <li> <a href="about.html">About</a> </li>
+            <li> <a href="upcoming-events.html">Upcoming events</a> </li>
+            <li> <a href="previous-events.html">Previous events</a> </li>
+            <li> <a href="contact.html">Contact</a> </li>
+          </ul>
+        </div>
+        <div class="footer-contact">
+          <p>Website designed in <a target="_blank" href="https://goo.gl/maps/nFUPXP3VKi3PSJrC6">M&uuml;nster</a> <br> <a href="mailto:wlinke@uni-muenster.de">E-mail</a> </p>
+        </div>
+      </footer>
 
-  </div>
+    </div>
   </body>
-</html>
+  </html>
