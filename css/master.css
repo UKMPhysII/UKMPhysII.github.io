@@ -53,7 +53,7 @@ header {
   transition: transform 0.5s ease;
 }
 
-.logo-container:hover img{
+.logo-container img:hover{
   transform: scale(1.2);
 }
 
