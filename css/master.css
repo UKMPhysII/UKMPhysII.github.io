@@ -111,7 +111,7 @@ flex: 1;
   text-decoration: none;
   align-items: center;
   justify-content: center;
-  font-size: calc(12px + 0.5vw);
+  font-size: calc(11px + 0.5vw);
   cursor: default;
 }
 
@@ -361,4 +361,26 @@ tr:first-child th:last-child {
   flex: 1;
   flex-basis: 420px;
   /* margin-left: 20px; */
+}
+
+
+/* ECA page */
+
+.eca-header {
+  display:flex;
+  flex-direction: row;
+  justify-content: left;
+  height: 15vh;
+}
+
+.eca-header h1 {
+  padding-top: 7.5%;
+}
+
+.travel img {
+  width: 100%;
+}
+
+.contact {
+  margin-top: 4vh;
 }
