@@ -415,3 +415,7 @@ tr:first-child th:last-child {
   padding: 0;
   border-radius: 10px;
 }
+
+.flyer {
+  width: 100%;
+}
