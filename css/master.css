@@ -188,6 +188,7 @@ section {
   padding: 0 60px;
   justify-content: center;
   align-items: center;
+  
 }
 
 
@@ -258,6 +259,10 @@ ol {
 
 .upcoming {
   margin-bottom: 40px;
+}
+
+.upcoming img {
+  width: 100%;
 }
 
 /* Table stuff */
@@ -383,14 +388,19 @@ tr:first-child th:last-child {
 
 .TravelAwards img {
   width: 100%;
+  
 }
 
 .News img {
-  width: 200%;
+  width: 100%;
+}
+
+.News h1 {
+  width: 100%;
 }
 
 .News {
-  margin-bottom: 5%;
+  margin-bottom: 0%;
 }
 
 .contact {
