@@ -9,8 +9,9 @@ html {
   overflow-y: scroll;
 }
 
-html, body {
-height: 100%;
+html,
+body {
+  height: 100%;
 }
 
 body {
@@ -53,7 +54,7 @@ header {
   transition: transform 0.5s ease;
 }
 
-.logo-container img:hover{
+.logo-container img:hover {
   transform: scale(1.2);
 }
 
@@ -66,7 +67,7 @@ header {
 }
 
 .spacer {
-flex: 1;
+  flex: 1;
 }
 
 .menu {
@@ -83,7 +84,7 @@ flex: 1;
 }
 
 
-.menu ul{
+.menu ul {
   display: flex;
   margin: 0;
   list-style-type: none;
@@ -119,7 +120,12 @@ flex: 1;
   background-color: #999;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin-bottom: 20px;
 }
 
@@ -136,7 +142,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 p {
-margin-bottom: 1em;
+  margin-bottom: 1em;
 }
 
 /* Footer */
@@ -188,7 +194,7 @@ section {
   padding: 0 60px;
   justify-content: center;
   align-items: center;
-  
+
 }
 
 
@@ -222,7 +228,7 @@ ol {
   list-style-type: none;
 }
 
-.EMC ol{
+.EMC ol {
   list-style-type: none;
 }
 
@@ -252,7 +258,27 @@ ol {
   margin: 0 auto;
 }
 
-.animate-fading{animation:fading 7s infinite}@keyframes fading{0%{opacity:0}50%{opacity:1}90%{opacity:1}100%{opacity:0}}
+.animate-fading {
+  animation: fading 7s infinite
+}
+
+@keyframes fading {
+  0% {
+    opacity: 0
+  }
+
+  50% {
+    opacity: 1
+  }
+
+  90% {
+    opacity: 1
+  }
+
+  100% {
+    opacity: 0
+  }
+}
 
 
 /* Upcoming page */
@@ -276,7 +302,8 @@ ol {
   margin-bottom: 30px;
 }
 
-td, th {
+td,
+th {
   border: 1px solid transparent;
   text-align: center;
   transition: all 0.1s;
@@ -333,6 +360,7 @@ tr:hover td {
 tr:first-child th:first-child {
   border-radius: 5px 0 0 0;
 }
+
 tr:first-child th:last-child {
   border-radius: 0 5px 0 0;
 }
@@ -345,18 +373,18 @@ tr:first-child th:last-child {
 }
 
 .about-item {
- display: flex;
- justify-content: center;
- flex-direction: row;
- flex-wrap: wrap;
- margin-bottom: 10px;
- padding: 3% 20%;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  padding: 3% 20%;
 }
 
 .contact-picture {
- margin-bottom: 20px;
- margin-right: 10px;
- flex: 1;
+  margin-bottom: 20px;
+  margin-right: 10px;
+  flex: 1;
 }
 
 .about-item img {
@@ -376,7 +404,7 @@ tr:first-child th:last-child {
 /* ECA page */
 
 .eca-header {
-  display:flex;
+  display: flex;
   flex-direction: row;
   justify-content: left;
   height: 15vh;
@@ -388,7 +416,7 @@ tr:first-child th:last-child {
 
 .TravelAwards img {
   width: 100%;
-  
+
 }
 
 .News img {
@@ -403,12 +431,36 @@ tr:first-child th:last-child {
   margin-bottom: 0%;
 }
 
+/* SPONSOR LOGO CSS */
+.Sponsors img {
+  width: 100%;
+}
+
+.Sponsors h1 {
+  width: 100%;
+}
+
+.Sponsors {
+  margin-bottom: 0%;
+}
+
+.sponsor-flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.sponsor-container {
+  width: 100%;
+}
+
+/* STUFF CSS */
 .contact {
   margin-top: 4vh;
 }
 
 .erc-wrapper {
-  display:flex;
+  display: flex;
   flex-direction: column;
   width: 100%;
   padding: 0;
