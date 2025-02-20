@@ -442,15 +442,23 @@ tr:first-child th:last-child {
 
 .Sponsors {
   margin-bottom: 0%;
+  /* width: 100%; */
 }
 
 .sponsor-flex {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-between;
+  width: 100%;
 }
 
 .sponsor-container {
+  width: 33%;
+  height: 150px;
+}
+
+.sponsor-container-2 {
   width: 100%;
 }
 
