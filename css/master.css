@@ -434,14 +434,18 @@ tr:first-child th:last-child {
 /* SPONSOR LOGO CSS */
 .Sponsors img {
   width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .Sponsors h1 {
   width: 100%;
+  text-align: center;
 }
 
 .Sponsors {
-  margin-bottom: 0%;
+  margin: 4rem 0;
+  padding: 2rem;
   /* width: 100%; */
 }
 
@@ -451,15 +455,24 @@ tr:first-child th:last-child {
   flex-wrap: wrap;
   justify-content: space-between;
   width: 100%;
+  gap: 1rem;
+  align-items: center;
 }
 
 .sponsor-container {
-  width: 33%;
+  width: 20%;
   height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .sponsor-container-2 {
-  width: 100%;
+  width: 40%;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* STUFF CSS */
