@@ -419,16 +419,17 @@ tr:first-child th:last-child {
 
 }
 
-.News img {
+/* news-events-jobs */
+.news-events-jobs img {
   width: 100%;
 }
 
-.News h1 {
+.news-events-jobs h1 {
   width: 100%;
 }
 
-.News {
-  margin-bottom: 0%;
+.news-events-jobs {
+  margin-bottom: 50px;
 }
 
 /* SPONSOR LOGO CSS */
