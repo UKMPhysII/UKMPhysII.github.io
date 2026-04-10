@@ -1,455 +1,548 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>ESMR - Previous events</title>
-    <link rel="stylesheet" href="css/master.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="imagetoolbar" content="no" />
-  </head>
-  <body>
-    <div class="page">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>ESMR – Conference Map</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/master.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+  <style>
+    html, body { height: 100%; overflow: hidden; }
 
-      <header>
-        <div class="header-container">
+    .page {
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
 
-          <picture class="logo-container">
-            <a href="https://www.emc2025amsterdam.com/" target="_blank">
-              <img class="logo" src="images/EMC2019.svg" alt="European Muscle Conferences logo">
-            </a>
-          </picture>
+    .map-layout {
+      display: flex;
+      flex: 1;
+      min-height: 0;
+      overflow: hidden;
+      margin-top: 16px;
+    }
 
-          <div class="banner-text">
-            <strong>
-            <h1>ESMR</h1>
-            <p>EUROPEAN SOCIETY for MUSCLE RESEARCH</p></strong>
-          </div>
+    #map { flex: 1; z-index: 1; }
 
-          <div class="spacer">
+    /* Sidebar */
+    .map-sidebar {
+      width: 300px;
+      flex-shrink: 0;
+      background: #f9f9f9;
+      border-left: 1px solid #DDD;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      font-family: 'Open Sans', Helvetica, sans-serif;
+    }
 
-          </div>
+    .sidebar-filters {
+      padding: 14px 16px;
+      background: #333;
+      color: white;
+      flex-shrink: 0;
+    }
 
-          <nav class="menu">
-            <ul>
-              <li><a href="index.html">Home</a></li>
-              <li><a href="about.html">About</a></li>
-              <li><a href="upcoming-events.html">Upcoming events</a></li>
-              <li><a href="previous-events.html">Previous events</a></li>
-              <li><a href="early-careers.html">Early careers</a></li>
-              <li><a href="contact.html">Contact</a></li>
-            </ul>
-          </nav>
-        </div>
+    .sidebar-filters h3 {
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #CCC;
+      margin-bottom: 12px;
+    }
 
-      </header>
+    .filter-group { margin-bottom: 12px; }
 
-    <div class="content">
+    .filter-group label {
+      display: block;
+      font-size: 0.73rem;
+      color: #AAA;
+      margin-bottom: 5px;
+    }
 
-    <section class="prev-table">
-      <h1>Table of previous events</h1>
+    .year-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
 
-      <div class="calendar-container">
-        <table border=0>
-          <tbody>
-          <tr align=left>
-            <th>EMC</th>
-            <th>Date</th>
-            <th>Location</th>
-            <th>Local Organizer(s)</th>
-            <th>Minutes</th>
-          </tr>
+    .year-row input[type="number"] {
+      width: 62px;
+      padding: 5px 7px;
+      background: #444;
+      border: 1px solid #555;
+      color: white;
+      border-radius: 3px;
+      font-size: 0.78rem;
+      font-family: 'Open Sans', Helvetica, sans-serif;
+    }
 
-          <td>LII</td>
-          <td>2025, Sep 20 - 24</td>
-          <td>Amsterdam, Netherlands</td>
-          <td>Josine de Winter, Diederik Kuster and Coen Ottenheijm</td>
-          <td>PDF</a></td></tr>
-          <tr>
+    .year-row span { color: #888; font-size: 0.85rem; }
 
-          <td>LI</td>
-          <td>2024, Sep 22 - 26</td>
-          <td>Ljubljana, Slovenia</td>
-          <td>Sergej Pirkmajer, Katarina Miš and Tomaž Marš</td>
-          <td><a target="_blank" href="minutes\minutes24.pdf">PDF</a></td></tr>
-          <tr>
+    .filter-group select {
+      width: 100%;
+      padding: 5px 8px;
+      background: #444;
+      border: 1px solid #555;
+      color: white;
+      border-radius: 3px;
+      font-size: 0.78rem;
+      font-family: 'Open Sans', Helvetica, sans-serif;
+      cursor: pointer;
+    }
 
-          <td>L</td>
-          <td>2023, Sep 2 - 6</td>
-          <td>Florence, Italy</td>
-          <td>Chiara Tesi, Marco Linari and Barbara Colombini</td>
-          <td><a target="_blank" href="minutes\minutes23.pdf">PDF</a></td></tr>
-          <tr>
+    .filter-group select option { background: #333; }
 
-          <td>XLIX</td>
-            <td>2022, Sep 22 - 26</td>
-            <td>Prague, Czech Republic</td>
-            <td>Jitka Zurmanova</td>
-            <td><a target="_blank" href="minutes/minutes22.pdf">PDF</a></td></tr>
-		  
-	<tr>
-          <td>First-ever Virtual</td>
-            <td>2021, Sep 20 - 22</td>
-            <td>Virtual</td>
-            <td>Jolanta Redowicz and </br> ESMR Board</td>
-            <td><a target="_blank" href="minutes/minutes21.pdf">PDF</a></td></tr>
-          <tr>
+    .btn-reset {
+      width: 100%;
+      padding: 7px;
+      background: #0f75bc;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      font-size: 0.75rem;
+      font-family: 'Open Sans', Helvetica, sans-serif;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 2px;
+    }
+    .btn-reset:hover { background: #0a5a91; }
 
-          <td>XLVIII</td>
-            <td>2019, Sep 7 - 11</td>
-            <td>Canterbury, UK</td>
-            <td>Elizabeth Ehler and </br> Michael A. Geeves</td>
-            <td><a target="_blank" href="minutes/minutes19.pdf">PDF</a></td></tr>
+    .sidebar-list-header {
+      padding: 8px 16px;
+      background: #EEE;
+      border-bottom: 1px solid #DDD;
+      font-size: 0.73rem;
+      color: #666;
+      flex-shrink: 0;
+    }
 
-          <tr>
-          <td>XLVII</td>
-            <td>2018, Aug 30 - Sept 3</td>
-            <td>Budapest, Hungary</td>
-            <td>Miklós Kellermayer</td>
-            <td><a target="_blank" href="minutes/minutes18.pdf">PDF</a></td></tr>
+    #event-list { overflow-y: auto; flex: 1; }
 
-          <tr>
-          <td>XLVI</td>
-            <td>2017, Sep 19 - 22</td>
-            <td>Potsdam, Germany</td>
-            <td>Wolfgang Linke</td>
-            <td><a target="_blank" href="minutes/minutes17.pdf">PDF</a></td></tr>
+    .event-item {
+      display: flex;
+      gap: 10px;
+      padding: 9px 16px;
+      border-bottom: 1px solid #EEE;
+      cursor: pointer;
+      transition: background 0.12s;
+      align-items: flex-start;
+    }
+    .event-item:hover { background: #EEE; }
+    .event-item.active {
+      background: #e8f3fb;
+      border-left: 3px solid #0f75bc;
+      padding-left: 13px;
+    }
+    .event-item.no-map { cursor: default; opacity: 0.6; }
 
-          <tr>
-          <td>XLV</td>
-            <td>2016, Sep 2 - 6</td>
-            <td>Montpellier, France</td>
-            <td>Stefan Matecki and Olivier Cazorla</td>
-            <td><a target="_blank" href="minutes/minutes16.pdf">PDF</a></td></tr>
+    .event-num {
+      font-size: 0.68rem;
+      font-weight: bold;
+      color: #0f75bc;
+      min-width: 42px;
+      padding-top: 2px;
+    }
 
-          <tr>
-          <td>XLIV</td>
-            <td>2015, Sep 21 - 25</td>
-            <td>Warsaw, Poland</td>
-            <td>Maria Jolanta Redowicz</td>
-            <td><a target="_blank" href="minutes/minutes15.pdf">PDF</a></td></tr>
+    .event-info h4 {
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 1px;
+      color: #222;
+    }
 
-          <tr>
-          <td>XLIII</td>
-            <td>2014, Sep 10 - 14</td>
-            <td>Austria, Salzburg</td>
-            <td>Stefan Galler</td>
-            <td><a target="_blank" href="minutes/minutes14.pdf">PDF</a></td></tr>
+    .event-info p {
+      font-size: 0.72rem;
+      color: #888;
+      margin: 0;
+    }
 
-          <tr>
-          <td>XLII</td>
-            <td>2013, Sep 21 – 25</td>
-            <td>Amsterdam, the Netherlands </td>
-            <td>Coen Ottenheijm, Rob Wüst, Richard Jaspers, and Jolanda van der Velden</td>
-            <td><a target="_blank" href="minutes/minutes13.pdf">PDF</a></td></tr>
+    .event-info a { font-size: 0.72rem; color: #0f75bc; }
 
-          <tr>
-            <td>XLI</td>
-            <td>2012, Sep 1 - 5</td>
-            <td>Rhodes, Greece</td>
-            <td>Christina Karatzaferi and Giorgos K. Sakkas</td>
-            <td><a target="_blank" href="minutes/minutes12.pdf">PDF</a></td></tr>
+    /* Leaflet popup */
+    .leaflet-popup-content-wrapper {
+      border-radius: 4px;
+      border-top: 3px solid #0f75bc;
+      font-family: 'Open Sans', Helvetica, sans-serif;
+      font-size: 13px;
+    }
 
-          <tr>
-            <td>XL</td>
-            <td>2011, Sep 14 - 18</td>
-            <td>Berlin, Germany</td>
-            <td>Ingo Morano</td>
-            <td><a target="_blank" href="minutes/minutes11.pdf">PDF</a></td></tr>
+    .popup-inner .emc-tag {
+      font-size: 0.68rem;
+      font-weight: bold;
+      color: #0f75bc;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 3px;
+    }
 
-          <tr>
-            <td>XXXIX</td>
-            <td>2010, Sep 11 - 15</td>
-            <td>Abano therme, Padova</td>
-            <td>Carlo Reggiani, Marco Sandri, Girolamo Lanfranchi, Corrado Angelini, and Antonio Paoli</td>
-            <td><a target="_blank" href="minutes/minutes10.pdf">PDF</a></td></tr>
+    .popup-inner h3 { font-size: 0.92rem; margin-bottom: 5px; color: #222; }
+    .popup-inner p  { font-size: 0.78rem; color: #555; margin-bottom: 3px; }
+    .popup-inner a  { font-size: 0.75rem; color: #0f75bc; display: inline-block; margin-top: 5px; }
 
-          <tr>
-            <td>XXXVIII</td>
-            <td>2009, Sep 12 - 16</td>
-            <td>Lille, France</td>
-            <td>Laurence Stevens and Bruno Bastide</td>
-            <td><a target="_blank" href="minutes/minutes09.pdf">PDF</a></td></tr>
+    .popup-event-list { margin-top: 8px; padding-top: 8px; border-top: 1px solid #EEE; }
+    .popup-event { margin-bottom: 8px; font-size: 0.78rem; }
+    .popup-event strong { color: #0f75bc; }
 
-          <tr>
-            <td>XXXVII</td>
-            <td>2008, Sep 13 - 16</td>
-            <td>Oxford, UK</td>
-            <td>Steven Marston and Charles Redwood</td>
-            <td><a target="_blank" href="minutes/minutes08.pdf">PDF</a></td></tr>
+    /* Markers */
+    .cluster-marker {
+      background: #0f75bc;
+      color: white;
+      border: 2px solid white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 0.72rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      font-family: 'Open Sans', Helvetica, sans-serif;
+    }
 
-          <tr>
-            <td>XXXVI</td>
-            <td>2007, Sep 8 - 12</td>
-            <td>Stockholm, Sweden</td>
-            <td>Anders Arner and Lars Larsson</td>
-            <td></td></tr>
+    .single-marker {
+      background: #0f75bc;
+      border: 2px solid white;
+      border-radius: 50%;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
 
-          <tr>
-            <td>XXXV</td>
-            <td>2006, Sep 9 - 12</td>
-            <td>Heidelberg, Germany</td>
-            <td>Rainer Fink</td>
-            <td></td></tr>
+    /* Footer — sits below the map */
+    .page > footer {
+      flex-shrink: 0;
+      z-index: 10;
+    }
 
-          <tr>
-            <td>XXXIV</td>
-            <td>2005, Sep 17 - 21</td>
-            <td>Debrecen, Hungary</td>
-            <td>István Jóna</td>
-            <td></td></tr>
+    /* === Mobile === */
+    @media (max-width: 700px) {
+      html, body { overflow: auto; height: auto; }
 
-          <tr>
-            <td>XXXIII</td>
-            <td>2004, Sep 19 - 23</td>
-            <td>Elba, Italy</td>
-            <td>Vincenzo Lombardi</td>
-            <td></td></tr>
+      .page {
+        height: auto;
+        overflow: visible;
+      }
 
-          <tr>
-            <td>XXXII</td>
-            <td>2003, Sep 7 - 10</td>
-            <td>Montpellier, France</A></td>
-            <td>Michel Pucéat</td>
-            <td></td></tr>
+      .map-layout {
+        flex-direction: column;
+        height: auto;
+        overflow: visible;
+      }
 
-          <tr>
-            <td>XXXI</td>
-            <td>2002, Sep 14 - 17</td>
-            <td>Lunteren, Netherlands</td>
-            <td>Ger Stienen, W. van der
-              Laarse, and A. de Haan</td>
-            <td></td></tr>
+      #map {
+        height: 55vw;
+        min-height: 220px;
+      }
 
-          <tr>
-            <td>XXX</td>
-            <td>2001, Sep 8 - 12</td>
-            <td>Pavia, Italy</td>
-            <td>C. Reggiani and R. Bottinelli</td>
-            <td></td></tr>
+      .map-sidebar {
+        width: 100%;
+        height: 320px;
+        border-left: none;
+        border-top: 1px solid #DDD;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
 
-          <tr>
-            <td>XXIX</td>
-            <td>2000, Sep 8 - 13</td>
-            <td>Berlin, Germany</td>
-            <td>I. Morano</td>
-            <td></td></tr>
-
-          <tr>
-            <td>XXVIII</td>
-            <td>1999, Sep 4 - 7</td>
-            <td>York, UK</td>
-            <td>J. Molloy, J. Sparrow, and D. White</td>
-            <td></td></tr>
-
-          <tr>
-            <td>XXVII</td>
-            <td>1998, Sep 11 - 16</td>
-            <td>Lund, Sweden</td>
-            <td>A. Arner, P. Hellstrand, and P. Edman</td>
-            <td></td></tr>
-
-          <tr>
-            <td>XXVI</td>
-            <td>1997, Sep 21 - 26</td>
-            <td>Hannover, Germany</td>
-            <td>B. Brenner</td>
-            <td></td></tr>
-
-          <tr>
-            <td>XXV</td>
-            <td>1996, Sep 14 - 17 </td>
-            <td>Montpellier, France</td>
-            <td>T. Barman and F. Travers</td>
-            <td></td></tr>
-
-          <tr>
-            <td>XXIV</td>
-            <td>1995, Sep 13 - 16</td>
-            <td>Florence, Italy</td>
-            <td>G. Cecchi, F. Colomo, and C. Poggesi</td>
-            <td></td></tr>
-
-          <tr>
-            <td>XXIII</td>
-            <td>1994</td>
-            <td>Bochum, Germany</td>
-            <td>Ludwig Heilmeyer</td>
-            <td></td></tr>
-
-          <tr>
-            <td>XXII</td>
-            <td>1993</td>
-            <td>Gwatt, Switzerland</td>
-            <td>Marcus Schaub</td>
-            <td></td></tr>
-
-          <tr>
-            <td>XXI</td>
-            <td>1992</td>
-            <td>Bielefeld, Germany</td>
-            <td>Harald Jockusch and Horst Hinssen</td>
-            <td></td></tr>
-
-          <tr>
-            <td>XX</td>
-            <td>1991</td>
-            <td>Oxford, UK</td>
-            <td>Chris Ashley and Gerald Elliott</td>
-            <td></td></tr>
-
-          <tr>
-            <td>XIX</td>
-            <td>1990</td>
-            <td>Brussels, Belgium</td>
-            <td>Georges Mar&eacute;chal</td>
-            <td></td></tr>
-
-          <tr>
-            <td>XVIII</td>
-            <td>1989</td>
-            <td>Lunteren, Netherlands</td>
-            <td>Tugendhold Blang&eacute;</td>
-            <td></td></tr>
-
-          <tr>
-            <td>XVII</td>
-            <td>1988</td>
-            <td>Abano Terme, Italy</td>
-            <td>Ugo Carraro</td>
-            <td></td></tr>
-
-          <tr>
-            <td>XVI</td>
-            <td>1987</td>
-            <td>Tiberias, Israel</td>
-            <td>Avraham Oplatka and Benny Geiger</td>
-            <td></td></tr>
-
-          <tr>
-            <td>XV</td>
-            <td>1986</td>
-            <td>Montpellier, France</td>
-            <td>Ridha Kassab</td>
-            <td></td></tr>
-
-          <tr>
-            <td>XIV</td>
-            <td>1985</td>
-            <td>Ulm, Germany</td>
-            <td>Reinhardt R&uuml;del</td>
-            <td></td></tr>
-
-          <tr>
-            <td>XIII</td>
-            <td>1984</td>
-            <td>Gwatt, Switzerland</td>
-            <td>Marcus Schaub</td>
-            <td></td></tr>
-
-          <tr>
-            <td>XII</td>
-            <td>1983</td>
-            <td>Szeged, Hungary</td>
-            <td>Ferenc Guba and &Ouml;d&ouml;n Takacs</td>
-            <td></td></tr>
-
-          <tr>
-            <td>XI</td>
-            <td>1982</td>
-            <td>Leicester, UK</td>
-            <td>Arthur Rowe and Clive Bagshaw</td>
-            <td></td></tr>
-
-          <tr>
-            <td>X</td>
-            <td>1981</td>
-            <td>Galway, Ireland</td>
-            <td>D. R. Headon</td>
-            <td></td></tr>
-
-          <tr>
-            <td>IX</td>
-            <td>1980</td>
-            <td>Salzburg, Austria</td>
-            <td>Vic Small</td>
-            <td></td></tr>
-
-          <tr>
-            <td>VIII</td>
-            <td>1979</td>
-            <td>Heidelberg, Germany</td>
-            <td>Caspar R&uuml;egg</td>
-            <td></td></tr>
-
-          <tr>
-            <td>VII</td>
-            <td>1978</td>
-            <td>Warszawa, Poland</td>
-            <td>Witek Drabikowski</td>
-            <td></td></tr>
-
-          <tr>
-            <td>VI</td>
-            <td>1977</td>
-            <td>Saclay/Paris, France</td>
-            <td>Ingrid Pinset-H&auml;rstr&ouml;m</td>
-            <td></td></tr>
-
-          <tr>
-            <td>V</td>
-            <td>1976</td>
-            <td>Bressanone, Italy</td>
-            <td>Alfredo Margreth</td>
-            <td></td></tr>
-
-          <tr>
-            <td>IV</td>
-            <td>1975</td>
-            <td>Aarhus, Denmark</td>
-            <td>Jack Lowy</td>
-            <td></td></tr>
-
-          <tr>
-            <td>III</td>
-            <td>1974</td>
-            <td>Budapest, Hungary</td>
-            <td>Endre Bir&oacute;</td>
-            <td></td></tr>
-
-          <tr>
-            <td>II</td>
-            <td>1973</td>
-            <td>Lenzburg, Switzerland</td>
-            <td>Marcus Schaub</td>
-            <td></td></tr>
-
-          <tr>
-            <td>I</td>
-            <td>1972</td>
-            <td>Li&egrave;ge, Belgium</td>
-            <td>Gabriel Hamoir</td>
-            <td></td></tr>
-          </table>
+  <header>
+    <div class="header-container">
+      <picture class="logo-container">
+        <a href="https://www.emc2025amsterdam.com/" target="_blank">
+          <img class="logo" src="images/EMC2019.svg" alt="European Muscle Conferences logo">
+        </a>
+      </picture>
+      <div class="banner-text">
+        <strong>
+          <h1>ESMR</h1>
+          <p>EUROPEAN SOCIETY for MUSCLE RESEARCH</p>
+        </strong>
       </div>
-
-    </section>
-    </div>
-    <footer>
-      <div class="footer-links">
+      <div class="spacer"></div>
+      <nav class="menu">
         <ul>
-          <li> <a href="index.html">Homepage</a> </li>
-          <li> <a href="about.html">About</a> </li>
-          <li> <a href="upcoming-events.html">Upcoming events</a> </li>
-          <li> <a href="previous-events.html">Previous events</a> </li>
-          <li> <a href="early-careers.html">Early careers</a></li>
-          <li> <a href="contact.html">Contact</a> </li>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="upcoming-events.html">Upcoming events</a></li>
+          <li><a href="previous-events.html">Previous events</a></li>
+          <li><a href="early-careers.html">Early careers</a></li>
+          <li><a href="contact.html">Contact</a></li>
         </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="map-layout">
+    <div id="map"></div>
+    <aside class="map-sidebar">
+      <div class="sidebar-filters">
+        <h3>Filter events</h3>
+        <div class="filter-group">
+          <label>Year range</label>
+          <div class="year-row">
+            <input type="number" id="year-from" value="1972" min="1972" max="2025">
+            <span>–</span>
+            <input type="number" id="year-to" value="2025" min="1972" max="2025">
+          </div>
+        </div>
+        <div class="filter-group">
+          <label>Country</label>
+          <select id="country-filter">
+            <option value="">All countries</option>
+          </select>
+        </div>
+        <button class="btn-reset" id="reset-btn">Reset filters</button>
       </div>
-      <div class="footer-contact">
-        <p>Website designed in <a target="_blank" href="https://goo.gl/maps/nFUPXP3VKi3PSJrC6">M&uuml;nster</a> <br> <a href="mailto:wlinke@uni-muenster.de">E-mail</a> </p>
-      </div>
-    </footer>
+      <div class="sidebar-list-header" id="list-count">Showing all 52 events</div>
+      <div id="event-list"></div>
+    </aside>
   </div>
-  </body>
+
+  <footer>
+    <div class="footer-links">
+      <ul>
+        <li> <a href="index.html">Homepage</a> </li>
+        <li> <a href="about.html">About</a> </li>
+        <li> <a href="upcoming-events.html">Upcoming events</a> </li>
+        <li> <a href="previous-events.html">Previous events</a> </li>
+        <li><a href="early-careers.html">Early careers</a></li>
+        <li> <a href="contact.html">Contact</a> </li>
+      </ul>
+    </div>
+    <div class="footer-contact">
+      <p>Website designed in <a target="_blank" href="https://goo.gl/maps/nFUPXP3VKi3PSJrC6">M&uuml;nster</a> <br> <a href="mailto:wlinke@uni-muenster.de">E-mail</a> </p>
+    </div>
+  </footer>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+const events = [
+  { num:"LII",               year:2025, dates:"Sep 20 – 24",      city:"Amsterdam",    country:"Netherlands",    organizers:"Josine de Winter, Diederik Kuster and Coen Ottenheijm",                          lat:52.3676, lng:4.9041,  minutes:null },
+  { num:"LI",                year:2024, dates:"Sep 22 – 26",      city:"Ljubljana",    country:"Slovenia",       organizers:"Sergej Pirkmajer, Katarina Miš and Tomaž Marš",                                  lat:46.0569, lng:14.5058, minutes:"minutes/minutes24.pdf" },
+  { num:"L",                 year:2023, dates:"Sep 2 – 6",        city:"Florence",     country:"Italy",          organizers:"Chiara Tesi, Marco Linari and Barbara Colombini",                                lat:43.7696, lng:11.2558, minutes:"minutes/minutes23.pdf" },
+  { num:"XLIX",              year:2022, dates:"Sep 22 – 26",      city:"Prague",       country:"Czech Republic", organizers:"Jitka Zurmanova",                                                                lat:50.0755, lng:14.4378, minutes:"minutes/minutes22.pdf" },
+  { num:"First-ever Virtual",year:2021, dates:"Sep 20 – 22",      city:"Virtual",      country:"Virtual",        organizers:"Jolanta Redowicz and ESMR Board",                                                lat:null,    lng:null,    minutes:"minutes/minutes21.pdf" },
+  { num:"XLVIII",            year:2019, dates:"Sep 7 – 11",       city:"Canterbury",   country:"UK",             organizers:"Elizabeth Ehler and Michael A. Geeves",                                         lat:51.2802, lng:1.0789,  minutes:"minutes/minutes19.pdf" },
+  { num:"XLVII",             year:2018, dates:"Aug 30 – Sep 3",   city:"Budapest",     country:"Hungary",        organizers:"Miklós Kellermayer",                                                             lat:47.4979, lng:19.0402, minutes:"minutes/minutes18.pdf" },
+  { num:"XLVI",              year:2017, dates:"Sep 19 – 22",      city:"Potsdam",      country:"Germany",        organizers:"Wolfgang Linke",                                                                 lat:52.3906, lng:13.0645, minutes:"minutes/minutes17.pdf" },
+  { num:"XLV",               year:2016, dates:"Sep 2 – 6",        city:"Montpellier",  country:"France",         organizers:"Stefan Matecki and Olivier Cazorla",                                             lat:43.6108, lng:3.8767,  minutes:"minutes/minutes16.pdf" },
+  { num:"XLIV",              year:2015, dates:"Sep 21 – 25",      city:"Warsaw",       country:"Poland",         organizers:"Maria Jolanta Redowicz",                                                         lat:52.2297, lng:21.0122, minutes:"minutes/minutes15.pdf" },
+  { num:"XLIII",             year:2014, dates:"Sep 10 – 14",      city:"Salzburg",     country:"Austria",        organizers:"Stefan Galler",                                                                  lat:47.8095, lng:13.0550, minutes:"minutes/minutes14.pdf" },
+  { num:"XLII",              year:2013, dates:"Sep 21 – 25",      city:"Amsterdam",    country:"Netherlands",    organizers:"Coen Ottenheijm, Rob Wüst, Richard Jaspers, and Jolanda van der Velden",         lat:52.3676, lng:4.9041,  minutes:"minutes/minutes13.pdf" },
+  { num:"XLI",               year:2012, dates:"Sep 1 – 5",        city:"Rhodes",       country:"Greece",         organizers:"Christina Karatzaferi and Giorgos K. Sakkas",                                    lat:36.4349, lng:28.2176, minutes:"minutes/minutes12.pdf" },
+  { num:"XL",                year:2011, dates:"Sep 14 – 18",      city:"Berlin",       country:"Germany",        organizers:"Ingo Morano",                                                                    lat:52.5200, lng:13.4050, minutes:"minutes/minutes11.pdf" },
+  { num:"XXXIX",             year:2010, dates:"Sep 11 – 15",      city:"Abano Terme",  country:"Italy",          organizers:"Carlo Reggiani, Marco Sandri, Girolamo Lanfranchi, Corrado Angelini, and Antonio Paoli", lat:45.3589, lng:11.7891, minutes:"minutes/minutes10.pdf" },
+  { num:"XXXVIII",           year:2009, dates:"Sep 12 – 16",      city:"Lille",        country:"France",         organizers:"Laurence Stevens and Bruno Bastide",                                             lat:50.6292, lng:3.0573,  minutes:"minutes/minutes09.pdf" },
+  { num:"XXXVII",            year:2008, dates:"Sep 13 – 16",      city:"Oxford",       country:"UK",             organizers:"Steven Marston and Charles Redwood",                                             lat:51.7520, lng:-1.2577, minutes:"minutes/minutes08.pdf" },
+  { num:"XXXVI",             year:2007, dates:"Sep 8 – 12",       city:"Stockholm",    country:"Sweden",         organizers:"Anders Arner and Lars Larsson",                                                  lat:59.3293, lng:18.0686, minutes:null },
+  { num:"XXXV",              year:2006, dates:"Sep 9 – 12",       city:"Heidelberg",   country:"Germany",        organizers:"Rainer Fink",                                                                    lat:49.3988, lng:8.6724,  minutes:null },
+  { num:"XXXIV",             year:2005, dates:"Sep 17 – 21",      city:"Debrecen",     country:"Hungary",        organizers:"István Jóna",                                                                    lat:47.5316, lng:21.6273, minutes:null },
+  { num:"XXXIII",            year:2004, dates:"Sep 19 – 23",      city:"Elba",         country:"Italy",          organizers:"Vincenzo Lombardi",                                                              lat:42.7600, lng:10.2800, minutes:null },
+  { num:"XXXII",             year:2003, dates:"Sep 7 – 10",       city:"Montpellier",  country:"France",         organizers:"Michel Pucéat",                                                                  lat:43.6108, lng:3.8867,  minutes:null },
+  { num:"XXXI",              year:2002, dates:"Sep 14 – 17",      city:"Lunteren",     country:"Netherlands",    organizers:"Ger Stienen, W. van der Laarse, and A. de Haan",                                lat:52.0844, lng:5.6272,  minutes:null },
+  { num:"XXX",               year:2001, dates:"Sep 8 – 12",       city:"Pavia",        country:"Italy",          organizers:"C. Reggiani and R. Bottinelli",                                                  lat:45.1847, lng:9.1582,  minutes:null },
+  { num:"XXIX",              year:2000, dates:"Sep 8 – 13",       city:"Berlin",       country:"Germany",        organizers:"I. Morano",                                                                      lat:52.5200, lng:13.4150, minutes:null },
+  { num:"XXVIII",            year:1999, dates:"Sep 4 – 7",        city:"York",         country:"UK",             organizers:"J. Molloy, J. Sparrow, and D. White",                                           lat:53.9600, lng:-1.0873, minutes:null },
+  { num:"XXVII",             year:1998, dates:"Sep 11 – 16",      city:"Lund",         country:"Sweden",         organizers:"A. Arner, P. Hellstrand, and P. Edman",                                         lat:55.7047, lng:13.1910, minutes:null },
+  { num:"XXVI",              year:1997, dates:"Sep 21 – 26",      city:"Hannover",     country:"Germany",        organizers:"B. Brenner",                                                                     lat:52.3759, lng:9.7320,  minutes:null },
+  { num:"XXV",               year:1996, dates:"Sep 14 – 17",      city:"Montpellier",  country:"France",         organizers:"T. Barman and F. Travers",                                                       lat:43.6108, lng:3.8767,  minutes:null },
+  { num:"XXIV",              year:1995, dates:"Sep 13 – 16",      city:"Florence",     country:"Italy",          organizers:"G. Cecchi, F. Colomo, and C. Poggesi",                                          lat:43.7696, lng:11.2658, minutes:null },
+  { num:"XXIII",             year:1994, dates:null,               city:"Bochum",       country:"Germany",        organizers:"Ludwig Heilmeyer",                                                               lat:51.4819, lng:7.2162,  minutes:null },
+  { num:"XXII",              year:1993, dates:null,               city:"Gwatt",        country:"Switzerland",    organizers:"Marcus Schaub",                                                                  lat:46.7042, lng:7.6200,  minutes:null },
+  { num:"XXI",               year:1992, dates:null,               city:"Bielefeld",    country:"Germany",        organizers:"Harald Jockusch and Horst Hinssen",                                              lat:52.0302, lng:8.5325,  minutes:null },
+  { num:"XX",                year:1991, dates:null,               city:"Oxford",       country:"UK",             organizers:"Chris Ashley and Gerald Elliott",                                                lat:51.7520, lng:-1.2677, minutes:null },
+  { num:"XIX",               year:1990, dates:null,               city:"Brussels",     country:"Belgium",        organizers:"Georges Maréchal",                                                               lat:50.8503, lng:4.3517,  minutes:null },
+  { num:"XVIII",             year:1989, dates:null,               city:"Lunteren",     country:"Netherlands",    organizers:"Tugendhold Blangé",                                                              lat:52.0844, lng:5.6372,  minutes:null },
+  { num:"XVII",              year:1988, dates:null,               city:"Abano Terme",  country:"Italy",          organizers:"Ugo Carraro",                                                                    lat:45.3589, lng:11.7991, minutes:null },
+  { num:"XVI",               year:1987, dates:null,               city:"Tiberias",     country:"Israel",         organizers:"Avraham Oplatka and Benny Geiger",                                               lat:32.7940, lng:35.5300, minutes:null },
+  { num:"XV",                year:1986, dates:null,               city:"Montpellier",  country:"France",         organizers:"Ridha Kassab",                                                                   lat:43.6108, lng:3.8567,  minutes:null },
+  { num:"XIV",               year:1985, dates:null,               city:"Ulm",          country:"Germany",        organizers:"Reinhardt Rüdel",                                                                lat:48.4011, lng:9.9876,  minutes:null },
+  { num:"XIII",              year:1984, dates:null,               city:"Gwatt",        country:"Switzerland",    organizers:"Marcus Schaub",                                                                  lat:46.7042, lng:7.6100,  minutes:null },
+  { num:"XII",               year:1983, dates:null,               city:"Szeged",       country:"Hungary",        organizers:"Ferenc Guba and Ödön Takacs",                                                    lat:46.2530, lng:20.1414, minutes:null },
+  { num:"XI",                year:1982, dates:null,               city:"Leicester",    country:"UK",             organizers:"Arthur Rowe and Clive Bagshaw",                                                  lat:52.6369, lng:-1.1398, minutes:null },
+  { num:"X",                 year:1981, dates:null,               city:"Galway",       country:"Ireland",        organizers:"D. R. Headon",                                                                   lat:53.2707, lng:-9.0568, minutes:null },
+  { num:"IX",                year:1980, dates:null,               city:"Salzburg",     country:"Austria",        organizers:"Vic Small",                                                                      lat:47.8095, lng:13.0450, minutes:null },
+  { num:"VIII",              year:1979, dates:null,               city:"Heidelberg",   country:"Germany",        organizers:"Caspar Rüegg",                                                                   lat:49.3988, lng:8.6824,  minutes:null },
+  { num:"VII",               year:1978, dates:null,               city:"Warsaw",       country:"Poland",         organizers:"Witek Drabikowski",                                                              lat:52.2297, lng:21.0222, minutes:null },
+  { num:"VI",                year:1977, dates:null,               city:"Saclay/Paris", country:"France",         organizers:"Ingrid Pinset-Härström",                                                         lat:48.7290, lng:2.1670,  minutes:null },
+  { num:"V",                 year:1976, dates:null,               city:"Bressanone",   country:"Italy",          organizers:"Alfredo Margreth",                                                               lat:46.7153, lng:11.6567, minutes:null },
+  { num:"IV",                year:1975, dates:null,               city:"Aarhus",       country:"Denmark",        organizers:"Jack Lowy",                                                                      lat:56.1629, lng:10.2039, minutes:null },
+  { num:"III",               year:1974, dates:null,               city:"Budapest",     country:"Hungary",        organizers:"Endre Biró",                                                                     lat:47.4979, lng:19.0502, minutes:null },
+  { num:"II",                year:1973, dates:null,               city:"Lenzburg",     country:"Switzerland",    organizers:"Marcus Schaub",                                                                  lat:47.3887, lng:8.1742,  minutes:null },
+  { num:"I",                 year:1972, dates:null,               city:"Liège",        country:"Belgium",        organizers:"Gabriel Hamoir",                                                                 lat:50.6326, lng:5.5797,  minutes:null },
+];
+
+// Populate country dropdown
+const countries = [...new Set(events.map(e => e.country))].filter(c => c !== 'Virtual').sort();
+const sel = document.getElementById('country-filter');
+countries.forEach(c => {
+  const opt = document.createElement('option');
+  opt.value = c; opt.textContent = c;
+  sel.appendChild(opt);
+});
+
+// Init map
+const map = L.map('map').setView([50, 12], 4);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+  attribution: '© OpenStreetMap contributors © CARTO', maxZoom: 18
+}).addTo(map);
+
+let activeMarkers = [];
+let activeListItem = null;
+
+function getFilters() {
+  return {
+    fromY: parseInt(document.getElementById('year-from').value) || 1972,
+    toY:   parseInt(document.getElementById('year-to').value)   || 2025,
+    country: document.getElementById('country-filter').value
+  };
+}
+
+function matchesFilter(e, f) {
+  return e.year >= f.fromY && e.year <= f.toY &&
+    (f.country === '' || e.country === f.country);
+}
+
+function buildPopupHTML(cityEvents) {
+  if (cityEvents.length === 1) {
+    const e = cityEvents[0];
+    const min = e.minutes ? `<a href="${e.minutes}" target="_blank">Download minutes →</a>` : '';
+    return `<div class="popup-inner">
+      <div class="emc-tag">EMC ${e.num}</div>
+      <h3>${e.city}, ${e.country}</h3>
+      <p><strong>Date:</strong> ${e.dates ? e.year + ', ' + e.dates : e.year}</p>
+      <p><strong>Organizers:</strong> ${e.organizers}</p>
+      ${min}
+    </div>`;
+  }
+  const rows = cityEvents.map(e => {
+    const min = e.minutes ? ` &nbsp;<a href="${e.minutes}" target="_blank">PDF</a>` : '';
+    return `<div class="popup-event">
+      <strong>EMC ${e.num}</strong> &nbsp;·&nbsp; ${e.dates ? e.year + ', ' + e.dates : e.year}<br>
+      <span style="color:#666">${e.organizers}</span>${min}
+    </div>`;
+  }).join('');
+  return `<div class="popup-inner">
+    <h3>${cityEvents[0].city}, ${cityEvents[0].country}</h3>
+    <p style="font-size:0.73rem;color:#999;margin-bottom:4px">${cityEvents.length} conferences held here</p>
+    <div class="popup-event-list">${rows}</div>
+  </div>`;
+}
+
+function markerSize(count) {
+  return Math.min(14 + (count - 1) * 7, 36);
+}
+
+function render() {
+  activeMarkers.forEach(m => map.removeLayer(m));
+  activeMarkers = [];
+
+  const f = getFilters();
+  const filtered = events.filter(e => e.lat !== null && matchesFilter(e, f));
+
+  // Group by city
+  const cityGroups = {};
+  filtered.forEach(e => {
+    const key = `${e.city}|${e.country}`;
+    if (!cityGroups[key]) cityGroups[key] = { events: [], lat: e.lat, lng: e.lng };
+    cityGroups[key].events.push(e);
+  });
+
+  Object.values(cityGroups).forEach(group => {
+    const count = group.events.length;
+    const size = markerSize(count);
+    const icon = L.divIcon({
+      className: '',
+      html: count > 1
+        ? `<div class="cluster-marker" style="width:${size}px;height:${size}px">${count}</div>`
+        : `<div class="single-marker" style="width:${size}px;height:${size}px"></div>`,
+      iconSize: [size, size],
+      iconAnchor: [size / 2, size / 2],
+      popupAnchor: [0, -(size / 2 + 4)]
+    });
+
+    const marker = L.marker([group.lat, group.lng], { icon })
+      .bindPopup(buildPopupHTML(group.events), { maxWidth: 290 })
+      .addTo(map);
+
+    marker.on('popupopen', () => {
+      const firstNum = group.events[0].num;
+      document.querySelectorAll('.event-item').forEach(item => {
+        item.classList.remove('active');
+        if (item.dataset.num === firstNum) {
+          item.classList.add('active');
+          item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          activeListItem = item;
+        }
+      });
+    });
+
+    activeMarkers.push(marker);
+  });
+
+  buildList(f);
+}
+
+function buildList(f) {
+  const list = document.getElementById('event-list');
+  list.innerHTML = '';
+
+  const allFiltered = events.filter(e => matchesFilter(e, f));
+
+  allFiltered.forEach(e => {
+    const item = document.createElement('div');
+    item.className = 'event-item' + (e.lat === null ? ' no-map' : '');
+    item.dataset.num = e.num;
+
+    const min = e.minutes ? ` · <a href="${e.minutes}" target="_blank">PDF</a>` : '';
+    const cityLabel = e.country === 'Virtual' ? 'Virtual event' : `${e.city}, ${e.country}`;
+
+    item.innerHTML = `
+      <div class="event-num">EMC ${e.num}</div>
+      <div class="event-info">
+        <h4>${cityLabel}</h4>
+        <p>${e.dates ? e.year + ', ' + e.dates : e.year}${min}</p>
+      </div>`;
+
+    if (e.lat !== null) {
+      item.addEventListener('click', () => {
+        activeMarkers.forEach(m => {
+          const ll = m.getLatLng();
+          if (Math.abs(ll.lat - e.lat) < 0.02 && Math.abs(ll.lng - e.lng) < 0.02) {
+            map.setView(ll, 7, { animate: true });
+            m.openPopup();
+          }
+        });
+        if (activeListItem) activeListItem.classList.remove('active');
+        item.classList.add('active');
+        activeListItem = item;
+      });
+    }
+
+    list.appendChild(item);
+  });
+
+  document.getElementById('list-count').textContent =
+    `Showing ${allFiltered.length} of ${events.length} events`;
+}
+
+document.getElementById('year-from').addEventListener('change', render);
+document.getElementById('year-to').addEventListener('change', render);
+document.getElementById('country-filter').addEventListener('change', render);
+document.getElementById('reset-btn').addEventListener('click', () => {
+  document.getElementById('year-from').value = 1972;
+  document.getElementById('year-to').value   = 2025;
+  document.getElementById('country-filter').value = '';
+  map.setView([50, 12], 4);
+  render();
+});
+
+render();
+</script>
+</body>
 </html>
